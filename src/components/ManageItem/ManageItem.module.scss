@@ -1,0 +1,78 @@
+.block {
+  width: 485px;
+  height: 583px;
+  background: #f8f8f8;
+  border-radius: 30px;
+  padding: 94px 54px 95px 54px;
+}
+
+.title {
+  font-size: 36px;
+  line-height: 43px;
+  text-align: center;
+}
+
+.state {
+  margin-top: 29px;
+  width: 377px;
+  height: 179px;
+  background: #ffffff;
+  border-radius: 21px;
+  padding: 48px 0 44px 0;
+}
+
+.iconBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 55px;
+  height: 55px;
+  background: #242424;
+  border-radius: 11px;
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+  &.active {
+    background: #4791ff;
+    svg {
+      width: 19px;
+      height: 16px;
+    }
+  }
+}
+
+.status {
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  margin-top: 11px;
+}
+
+.toggleBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 54px;
+  width: 377px;
+  height: 89px;
+  background: #4791ff;
+  border-radius: 16px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  border: none;
+  transition: 0.5s all;
+  cursor: pointer;
+  &.active {
+    background: #242424;
+  }
+  &:hover {
+    color: #242424;
+    background: #ffffff;
+    border: 1px solid #4791ff;
+    border-radius: 16px;
+  }
+}
