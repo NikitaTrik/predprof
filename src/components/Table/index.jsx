@@ -10,6 +10,7 @@ function Table() {
     <div className={styles.root}>
       <div className={styles.header}>
         <span>ID датчика</span>
+        <span>Время</span>
         <span>Температура</span>
         <span>Влажность</span>
       </div>
@@ -18,6 +19,7 @@ function Table() {
           return (
             <div key={index} className={styles.row}>
               <div className={styles.rowId}>{item.id}</div>
+              <div className={styles.value}>{item.time}</div>
               <div className={styles.value}>{item.temperature}</div>
               <div className={styles.value}>{item.humidity}</div>
             </div>
