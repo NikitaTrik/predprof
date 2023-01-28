@@ -34,8 +34,6 @@ export default function useChartData(dataset, defaltQuantity) {
     dataset.length > 0
       ? [...new Set(dataset.map((data) => data.order))]
       : new Array(defaltQuantity).fill(0).map((_, index) => index + 1);
-  console.log(dataset);
-  console.log(labels);
   const orderNames = [
     'Первый датчик',
     'Второй датчик',

@@ -8,7 +8,7 @@ const sensorsDataSlice = createSlice({
   },
   reducers: {
     addTemperature(state, action) {
-      state.temperature.push(action.payload);
+      state.temperature.push(...action.payload);
     },
     addSoilHumidity(state, action) {
       state.soilHumidity.push(action.payload);
