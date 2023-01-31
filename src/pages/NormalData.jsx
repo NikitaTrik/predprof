@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
+import CategoryButton from '../components/CategoryButton';
 import MainTitle from '../components/MainTitle';
 import Table from '../components/Table';
 import useChartData from '../hooks/useChartData';
 
 function NormalData() {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const categories = ['1', '2', '3', '4'];
   const temperatureDataset = useSelector((state) => state.sensorsData.temperature).map((item) => {
     return {
       id: item.id,
@@ -43,8 +46,23 @@ function NormalData() {
           <Line options={humidityChartData[0]} data={humidityChartData[1]} />
         </div>
       </div>
-
-      <Table />
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}>
+        {categories.map((category) => {
+          return (
+            <CategoryButton
+              key={category}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              value={category}
+            />
+          );
+        })}
+      </div>
+      <Table selectedCategory={selectedCategory} />
     </>
   );
 }

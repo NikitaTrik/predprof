@@ -16,18 +16,18 @@ function App() {
       dispatch(
         addTemperature(
           data.map((item) => {
-            const date = new Date();
+            // const date = new Date();
             return {
               ...item,
               order: count,
-              time:
-                date.getHours() +
-                ' : ' +
-                date.getMinutes() +
-                ' : ' +
-                (String(date.getSeconds()).length > 1
-                  ? date.getSeconds()
-                  : '0' + date.getSeconds()),
+              // time:
+              //   date.getHours() +
+              //   ' : ' +
+              //   date.getMinutes() +
+              //   ' : ' +
+              //   (String(date.getSeconds()).length > 1
+              //     ? date.getSeconds()
+              //     : '0' + date.getSeconds()),
             };
           }),
         ),

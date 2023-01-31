@@ -1,0 +1,23 @@
+.root {
+  width: 351px;
+  height: 107px;
+  border: 1px solid #242424;
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 107px;
+  text-align: center;
+  background: #ffffff;
+  transition: 0.3s all;
+  cursor: pointer;
+  &.active {
+    background: #242424;
+    color: #ffffff;
+    &:hover {
+      border: 1px solid #242424;
+    }
+  }
+  &:hover {
+    border: 1px solid #4791ff;
+  }
+}
