@@ -4,6 +4,7 @@ const sensorsDataSlice = createSlice({
   name: 'sensorsData',
   initialState: {
     temperature: [],
+    average: [],
     soilHumidity: [],
   },
   reducers: {
@@ -13,8 +14,11 @@ const sensorsDataSlice = createSlice({
     addSoilHumidity(state, action) {
       state.soilHumidity.push(action.payload);
     },
+    addAverage(state, action) {
+      state.average.push(action.payload);
+    },
   },
 });
 
-export const { addTemperature, addSoilHumidity } = sensorsDataSlice.actions;
+export const { addTemperature, addSoilHumidity, addAverage } = sensorsDataSlice.actions;
 export default sensorsDataSlice.reducer;

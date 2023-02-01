@@ -17,7 +17,9 @@ function Header() {
           <Link to="/normalData" className={styles.link}>
             Температура и влажность
           </Link>
-          <span className={styles.link}>Ср. температура и влажность</span>
+          <Link to="/averageData" className={styles.link}>
+            Ср. температура и влажность
+          </Link>
           <span className={styles.link}>Влажность почвы</span>
         </nav>
       </div>

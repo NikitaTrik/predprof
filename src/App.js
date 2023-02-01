@@ -2,11 +2,12 @@ import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import { receiveTemperatureData } from './dataReceiving';
+import AverageData from './pages/AverageData';
 import Manage from './pages/Manage';
 import NormalData from './pages/NormalData';
 
 import './scss/app.scss';
-import { addTemperature } from './store/sensorsDataSlice';
+import { addAverage, addTemperature } from './store/sensorsDataSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -14,20 +15,18 @@ function App() {
   setInterval(() => {
     receiveTemperatureData().then((data) => {
       dispatch(
+        addAverage({
+          temperature: (data.reduce((a, value) => a + value.temperature, 0) / 4).toFixed(2),
+          humidity: (data.reduce((a, value) => a + value.humidity, 0) / 4).toFixed(2),
+          order: count,
+        }),
+      );
+      dispatch(
         addTemperature(
           data.map((item) => {
-            // const date = new Date();
             return {
               ...item,
               order: count,
-              // time:
-              //   date.getHours() +
-              //   ' : ' +
-              //   date.getMinutes() +
-              //   ' : ' +
-              //   (String(date.getSeconds()).length > 1
-              //     ? date.getSeconds()
-              //     : '0' + date.getSeconds()),
             };
           }),
         ),
@@ -41,6 +40,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Manage />} />
         <Route path="/normalData" element={<NormalData />} />
+        <Route path="/averageData" element={<AverageData />} />
       </Routes>
     </div>
   );
