@@ -2,9 +2,11 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import MainTitle from '../components/MainTitle';
+import Table from '../components/Table';
 import useChartData from '../hooks/useChartData';
 
 function AverageData() {
+  let count = 0;
   const averageTemperatureDataset = useSelector((state) => state.sensorsData.average).map(
     (item) => {
       return {
@@ -48,6 +50,14 @@ function AverageData() {
           <Line options={averageHumidityChartData[0]} data={averageHumidityChartData[1]} />
         </div>
       </div>
+      <Table
+        selectedCategory=""
+        columns={['ID измерения', 'Средняя температура', 'Средняя влажность']}
+        data={useSelector((state) => state.sensorsData.average).map((item) => {
+          count += 3;
+          return { id: item.order, ...item, count: [count, count + 1, count + 2] };
+        })}
+      />
     </>
   );
 }

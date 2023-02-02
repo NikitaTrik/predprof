@@ -8,6 +8,7 @@ import useChartData from '../hooks/useChartData';
 
 function NormalData() {
   const [selectedCategory, setSelectedCategory] = useState('');
+  let count = 0;
   const categories = ['1', '2', '3', '4'];
   const temperatureDataset = useSelector((state) => state.sensorsData.temperature).map((item) => {
     return {
@@ -62,7 +63,14 @@ function NormalData() {
           );
         })}
       </div>
-      <Table selectedCategory={selectedCategory} />
+      <Table
+        selectedCategory={selectedCategory}
+        columns={['ID датчика', 'Температура', 'Влажность']}
+        data={useSelector((state) => state.sensorsData.temperature).map((item) => {
+          count += 3;
+          return { ...item, count: [count, count + 1, count + 2] };
+        })}
+      />
     </>
   );
 }

@@ -1,27 +1,29 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import styles from './Table.module.scss';
 
-function Table({ selectedCategory }) {
-  const data = useSelector((state) => state.sensorsData.temperature);
-
+function Table({ selectedCategory, columns, data }) {
   return (
     <div className={styles.root}>
       <div className={styles.header}>
-        <span>ID датчика</span>
-        <span>Температура</span>
-        <span>Влажность</span>
+        {columns.map((column, index) => (
+          <span key={index}>{column}</span>
+        ))}
       </div>
       <div className={styles.content}>
         {data.map((item, index) => {
           if (!selectedCategory || String(item.id) === selectedCategory) {
-            console.log('Selected', selectedCategory);
             return (
               <div key={index} className={styles.row}>
-                <div className={styles.rowId}>{item.id}</div>
-                <div className={styles.value}>{item.temperature}</div>
-                <div className={styles.value}>{item.humidity}</div>
+                {Object.keys(item).map((key, idx) =>
+                  key !== 'order' && key !== 'count' ? (
+                    <div key={item.count[idx]} className={styles.rowId}>
+                      {item[key]}
+                    </div>
+                  ) : (
+                    ''
+                  ),
+                )}
               </div>
             );
           } else {
