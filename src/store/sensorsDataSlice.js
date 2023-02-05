@@ -12,7 +12,7 @@ const sensorsDataSlice = createSlice({
       state.temperature.push(...action.payload);
     },
     addSoilHumidity(state, action) {
-      state.soilHumidity.push(action.payload);
+      state.soilHumidity.push(...action.payload);
     },
     addAverage(state, action) {
       state.average.push(action.payload);

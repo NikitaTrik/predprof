@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
-import { receiveTemperatureData } from './dataReceiving';
+import { receiveSoilHumidityData, receiveTemperatureData } from './dataReceiving';
 import AverageData from './pages/AverageData';
 import Manage from './pages/Manage';
 import NormalData from './pages/NormalData';
+import SoilHumidity from './pages/SoilHumidity';
 
 import './scss/app.scss';
-import { addAverage, addTemperature } from './store/sensorsDataSlice';
+import { addAverage, addSoilHumidity, addTemperature } from './store/sensorsDataSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,19 @@ function App() {
           }),
         ),
       );
+
+      receiveSoilHumidityData().then((data) => {
+        dispatch(
+          addSoilHumidity(
+            data.map((item) => {
+              return {
+                ...item,
+                order: count,
+              };
+            }),
+          ),
+        );
+      });
     });
     count++;
   }, 10000);
@@ -41,6 +55,7 @@ function App() {
         <Route path="/" element={<Manage />} />
         <Route path="/normalData" element={<NormalData />} />
         <Route path="/averageData" element={<AverageData />} />
+        <Route path="/soilHumidity" element={<SoilHumidity />} />
       </Routes>
     </div>
   );

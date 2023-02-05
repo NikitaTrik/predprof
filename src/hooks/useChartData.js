@@ -28,6 +28,14 @@ export default function useChartData(dataset, defaltQuantity, type = 'normal') {
       borderColor: 'rgb(59, 170, 54)',
       backgroundColor: 'rgba(59, 170, 54, 0.5)',
     },
+    {
+      borderColor: 'rgb(47, 47, 162)',
+      backgroundColor: 'rgba(47, 47, 162, 0.5)',
+    },
+    {
+      borderColor: 'rgba(195, 7, 63, 1);',
+      backgroundColor: 'rgba(195, 7, 63, 0.5);',
+    },
   ];
   const options = {};
   const labels =
@@ -93,6 +101,32 @@ export default function useChartData(dataset, defaltQuantity, type = 'normal') {
             backgroundColor: colors[1].backgroundColor,
           },
         ],
+      };
+      break;
+    case 'soilHumidity':
+      data = {
+        labels,
+        datasets:
+          dataset.length > 0
+            ? [...new Set(dataset.map((item) => item.id))].map((id) => {
+                console.log(colors[5]);
+                return {
+                  label: orderNames[id - 1],
+                  data: dataset
+                    .filter((dataItem) => dataItem.id === id)
+                    .map((value) => value.value),
+                  borderColor: colors[id - 1].borderColor,
+                  backgroundColor: colors[id - 1].backgroundColor,
+                };
+              })
+            : labels.map((label) => {
+                return {
+                  label: orderNames[label - 1],
+                  data: [],
+                  borderColor: colors[label - 1].borderColor,
+                  backgroundColor: colors[label - 1].backgroundColor,
+                };
+              }),
       };
       break;
     default:
