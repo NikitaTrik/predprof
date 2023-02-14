@@ -3,7 +3,6 @@ import React from 'react';
 import styles from './ShortTable.module.scss';
 
 function ShortTable({ selectedCategory, columns, data }) {
-  console.log(data);
   return (
     <div className={styles.root}>
       <div className={styles.header}>

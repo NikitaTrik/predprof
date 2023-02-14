@@ -109,7 +109,6 @@ export default function useChartData(dataset, defaltQuantity, type = 'normal') {
         datasets:
           dataset.length > 0
             ? [...new Set(dataset.map((item) => item.id))].map((id) => {
-                console.log(colors[5]);
                 return {
                   label: orderNames[id - 1],
                   data: dataset

@@ -3,6 +3,7 @@ import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import CategoryButton from '../components/CategoryButton';
 import MainTitle from '../components/MainTitle';
+import ShortTable from '../components/ShortTable';
 import Table from '../components/Table';
 import useChartData from '../hooks/useChartData';
 
@@ -11,7 +12,6 @@ function SoilHumidity() {
   let count = 0;
   const categories = ['1', '2', '3', '4', '5', '6'];
   const humidityDataset = useSelector((state) => state.sensorsData.soilHumidity).map((item) => {
-    console.log(item);
     return {
       id: item.id,
       order: item.order,
@@ -43,10 +43,10 @@ function SoilHumidity() {
           );
         })}
       </div>
-      <Table
+      <ShortTable
         selectedCategory={selectedCategory}
-        columns={['ID датчика', 'Температура', 'Влажность']}
-        data={useSelector((state) => state.sensorsData.temperature).map((item) => {
+        columns={['ID датчика', 'Влажность']}
+        data={useSelector((state) => state.sensorsData.soilHumidity).map((item) => {
           count += 3;
           return { ...item, count: [count, count + 1, count + 2] };
         })}

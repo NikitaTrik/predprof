@@ -8,7 +8,6 @@ export function useOutsideClick(ref, btnRef, callback) {
         !ref.current.contains(event.target) &&
         !btnRef.current.contains(event.target)
       ) {
-        console.log(1);
         callback();
       }
     }
