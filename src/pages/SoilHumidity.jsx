@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import CategoryButton from '../components/CategoryButton';
 import MainTitle from '../components/MainTitle';
 import ShortTable from '../components/ShortTable';
-import Table from '../components/Table';
 import useChartData from '../hooks/useChartData';
 
 function SoilHumidity() {
@@ -29,7 +28,9 @@ function SoilHumidity() {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
+          margin: '0 auto',
           marginTop: '36px',
+          width: '1050px',
         }}>
         {categories.map((category) => {
           return (

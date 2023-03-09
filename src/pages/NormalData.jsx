@@ -32,17 +32,19 @@ function NormalData() {
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div
           style={{
-            height: '437px',
+            height: '369px',
             width: '49%',
             marginTop: '39px',
+            marginBottom: '35px',
           }}>
           <Line options={temperatureChartData[0]} data={temperatureChartData[1]} />
         </div>
         <div
           style={{
-            height: '437px',
+            height: '369px',
             marginTop: '39px',
             width: '49%',
+            marginBottom: '35px',
           }}>
           <Line options={humidityChartData[0]} data={humidityChartData[1]} />
         </div>
@@ -51,6 +53,8 @@ function NormalData() {
         style={{
           display: 'flex',
           justifyContent: 'space-between',
+          width: '1000px',
+          margin: '0 auto',
         }}>
         {categories.map((category) => {
           return (
