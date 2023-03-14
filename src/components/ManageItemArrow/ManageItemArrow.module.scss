@@ -3,17 +3,24 @@
   height: 583px;
   background: #f8f8f8;
   border-radius: 30px;
-  padding: 70px 54px 95px 54px;
+  padding: 50px 54px 95px 54px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .title {
   font-size: 36px;
   line-height: 43px;
+  width: 261px;
   text-align: center;
 }
 
 .state {
-  margin-top: 72px;
+  margin-top: 48px;
   width: 377px;
   height: 179px;
   background: #ffffff;
@@ -75,4 +82,10 @@
     border: 1px solid #4791ff;
     border-radius: 16px;
   }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

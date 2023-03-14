@@ -1,11 +1,27 @@
+import axios from 'axios';
 import classNames from 'classnames';
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { changeHydrationState, changeSashState } from '../../store/devicesSlice';
 
 import styles from './ManageItem.module.scss';
 
-function ManageItem({ title }) {
-  const [deviceState, setDeviceState] = useState(false);
-
+function ManageItem({ title, status, btnText, deviceState}) {
+  const dispatch = useDispatch();
+  let dispatchFunc;
+  let url;
+  switch (title) {
+    case 'Форточки':
+      dispatchFunc = changeSashState;
+      url = 'https://dt.miet.ru/ppo_it/api/fork_drive';
+      break;
+    case 'Система увлажнения':
+      dispatchFunc = changeHydrationState;
+      url = 'https://dt.miet.ru/ppo_it/api/total_hum';
+      break;
+    default:
+      break;
+  }
   return (
     <div className={styles.block}>
       <h2 className={styles.title}>{title}</h2>
@@ -43,19 +59,21 @@ function ManageItem({ title }) {
           )}
         </div>
 
-        <p className={styles.status}>
-          {deviceState ? 'Устройство включено' : 'Устройство выключено'}
-        </p>
+        <p className={styles.status}>{deviceState ? status[1] : status[0]}</p>
       </div>
 
       <button
-        onClick={() => setDeviceState(!deviceState)}
+        onClick={() => {
+          dispatch(dispatchFunc(!deviceState));
+          axios
+            .patch(url, {}, { params: { state: +!deviceState } })
+            .catch((error) => console.log(error.response));
+        }}
         className={classNames(styles.toggleBtn, deviceState && styles.active)}>
-        {deviceState ? 'Выключить устройство' : 'Включить устройство'}
+        {deviceState ? btnText[1] : btnText[0]}
       </button>
     </div>
   );
 }
 
 export default ManageItem;
-
