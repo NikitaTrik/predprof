@@ -1,7 +1,7 @@
 import axios from 'axios';
 import classNames from 'classnames';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeWateringState } from '../../store/devicesSlice';
 
 import styles from './ManageItemArrow.module.scss';
@@ -9,6 +9,12 @@ import styles from './ManageItemArrow.module.scss';
 function ManageItemArrow({ status, btnText, deviceState }) {
   const dispatch = useDispatch();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const avrData = useSelector((state) => state.sensorsData.soilHumidity);
+  const count =
+    avrData.length &&
+    avrData.reduce((a, b) => (+b?.id === currentIndex + 1 ? a + b?.humidity : a), 0) /
+      avrData.reduce((a, b) => (+b?.id === currentIndex + 1 ? a + 1 : a), 0);
+  const settingData = useSelector((state) => state.setting.settingValues)?.averageSoilHum;
   const titles = [
     'Первый автополив',
     'Второй автополив',
@@ -94,7 +100,12 @@ function ManageItemArrow({ status, btnText, deviceState }) {
             )
             .catch((error) => console.log(error.response));
         }}
-        className={classNames(styles.toggleBtn, deviceState[currentIndex] && styles.active)}>
+        disabled={settingData ? count > settingData && true : false}
+        className={classNames(
+          styles.toggleBtn,
+          settingData ? count > settingData && styles.disabled : '',
+          deviceState[currentIndex] && styles.active,
+        )}>
         {deviceState[currentIndex] ? btnText[1] : btnText[0]}
       </button>
     </div>

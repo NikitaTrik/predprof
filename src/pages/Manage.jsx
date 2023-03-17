@@ -8,7 +8,9 @@ function Manage() {
   const sashState = useSelector((state) => state.devices.sash);
   const hydrationState = useSelector((state) => state.devices.hydration);
   const wateringState = useSelector((state) => state.devices.watering);
-
+  let avrData = useSelector((state) => state.sensorsData.average);
+  avrData = avrData[avrData.length - 1];
+  const settingData = useSelector((state) => state.setting.settingValues);
   return (
     <>
       <MainTitle text="Управление компонентами системы" />
@@ -24,12 +26,16 @@ function Manage() {
           status={['Форточки закрыты', 'Форточки открыты']}
           btnText={['Открыть форточки', 'Закрыть форточки']}
           deviceState={sashState}
+          avrData={avrData?.temperature}
+          settingData={settingData?.averageTemp}
         />
         <ManageItem
           title="Система увлажнения"
           status={['Система выключена', 'Система включена']}
           btnText={['Включить систему', 'Выключить систему']}
           deviceState={hydrationState}
+          avrData={avrData?.humidity}
+          settingData={settingData?.averageHum}
         />
         <ManageItemArrow
           status={['Полив выключен', 'Полив включен']}

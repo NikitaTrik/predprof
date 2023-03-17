@@ -1,13 +1,22 @@
 import classNames from 'classnames';
 import React, { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 import { useOutsideClick } from '../../hooks/useOutsideClick';
+import { addSettingValues } from '../../store/settingSlice';
 
 import styles from './Header.module.scss';
 
 function Header() {
+  const dispatch = useDispatch();
   const [settingsMenuState, setSettingsMenuState] = useState(false);
+  const [emergencyBtnState, setEmergencyBtnState] = useState(false);
+  const [settingValues, setSettingValues] = useState({
+    averageTemp: '',
+    averageHum: '',
+    averageSoilHum: '',
+  });
   const ref = useRef(null);
   const btnRef = useRef(null);
   useOutsideClick(ref, btnRef, () => setSettingsMenuState(false));
@@ -50,19 +59,81 @@ function Header() {
           />
         </svg>
       </header>
-      <svg
-        ref={ref}
-        className={classNames(styles.menu, settingsMenuState && styles.active)}
-        xmlns="http://www.w3.org/2000/svg"
-        width="498"
-        height="769"
-        viewBox="0 0 498 769"
-        fill="none">
-        <path
-          d="M443.161 24.8757L435.246 2.8072C434.345 0.292832 430.854 0.122012 429.711 2.53633L418.708 25.7786C417.055 29.2723 413.535 31.5 409.67 31.5H10.5C4.97715 31.5 0.5 35.9772 0.5 41.5V758.5C0.5 764.023 4.97716 768.5 10.5 768.5H487.5C493.023 768.5 497.5 764.023 497.5 758.5V41.5C497.5 35.9772 493.023 31.5 487.5 31.5H452.574C448.352 31.5 444.586 28.8493 443.161 24.8757Z"
-          fill="white"
-        />
-      </svg>
+      <div ref={ref} className={classNames(styles.menu, settingsMenuState && styles.active)}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="498"
+          height="769"
+          viewBox="0 0 498 769"
+          fill="none">
+          <path
+            d="M443.161 24.8757L435.246 2.8072C434.345 0.292832 430.854 0.122012 429.711 2.53633L418.708 25.7786C417.055 29.2723 413.535 31.5 409.67 31.5H10.5C4.97715 31.5 0.5 35.9772 0.5 41.5V758.5C0.5 764.023 4.97716 768.5 10.5 768.5H487.5C493.023 768.5 497.5 764.023 497.5 758.5V41.5C497.5 35.9772 493.023 31.5 487.5 31.5H452.574C448.352 31.5 444.586 28.8493 443.161 24.8757Z"
+            fill="white"
+          />
+        </svg>
+        <div className={styles.inputWrapper}>
+          <label className={styles.label} htmlFor="">
+            Средняя температура
+            <input
+              value={settingValues.averageTemp}
+              onChange={(e) => setSettingValues({ ...settingValues, averageTemp: e.target.value })}
+              placeholder="Введите температуру"
+              className={classNames(styles.input, settingValues.averageTemp && styles.active)}
+              type="text"
+            />
+          </label>
+          <label className={styles.label} htmlFor="">
+            Средняя влажность воздуха
+            <input
+              value={settingValues.averageHum}
+              onChange={(e) => setSettingValues({ ...settingValues, averageHum: e.target.value })}
+              placeholder="Введите влажность воздуха"
+              className={classNames(styles.input, settingValues.averageHum && styles.active)}
+              type="text"
+            />
+          </label>
+          <label className={styles.label} htmlFor="">
+            Средняя влажность почвы в бороздке
+            <input
+              value={settingValues.averageSoilHum}
+              onChange={(e) =>
+                setSettingValues({ ...settingValues, averageSoilHum: e.target.value })
+              }
+              placeholder="Введите влажность почвы"
+              className={classNames(styles.input, settingValues.averageSoilHum && styles.active)}
+              type="text"
+            />
+          </label>
+          <button
+            onClick={() => {
+              setSettingsMenuState(false);
+              dispatch(addSettingValues(settingValues));
+            }}
+            className={styles.saveBtn}>
+            Сохранить настройки
+          </button>
+          <button
+            onClick={() => {
+              if (emergencyBtnState) {
+                setEmergencyBtnState(false);
+                dispatch(addSettingValues(settingValues));
+                setSettingsMenuState(false);
+              } else {
+                setEmergencyBtnState(true);
+                dispatch(addSettingValues({ averageTemp: '', averageHum: '', averageSoilHum: '' }));
+                setSettingsMenuState(false);
+              }
+            }}
+            className={classNames(
+              styles.saveBtn,
+              styles.emergency,
+              emergencyBtnState && styles.active,
+            )}>
+            {emergencyBtnState ? 'Выключить экстренный режим' : 'Включить экстренный режим'}
+          </button>
+        </div>
+      </div>
+
       {settingsMenuState && <div className={classNames(styles.bgBlur, styles.blur)}></div>}
     </>
   );

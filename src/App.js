@@ -15,7 +15,6 @@ function App() {
   let count = 0;
   setInterval(() => {
     receiveTemperatureData().then((data) => {
-      console.log(data);
       dispatch(
         addAverage({
           temperature: (data.reduce((a, value) => a + value.temperature, 0) / 4).toFixed(2),
@@ -35,7 +34,6 @@ function App() {
       );
 
       receiveSoilHumidityData().then((data) => {
-        console.log(data);
         dispatch(
           addSoilHumidity(
             data.map((item) => {

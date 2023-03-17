@@ -6,8 +6,9 @@ import { changeHydrationState, changeSashState } from '../../store/devicesSlice'
 
 import styles from './ManageItem.module.scss';
 
-function ManageItem({ title, status, btnText, deviceState}) {
+function ManageItem({ title, status, btnText, deviceState, avrData, settingData }) {
   const dispatch = useDispatch();
+  
   let dispatchFunc;
   let url;
   switch (title) {
@@ -69,7 +70,12 @@ function ManageItem({ title, status, btnText, deviceState}) {
             .patch(url, {}, { params: { state: +!deviceState } })
             .catch((error) => console.log(error.response));
         }}
-        className={classNames(styles.toggleBtn, deviceState && styles.active)}>
+        disabled={settingData ? +avrData > +settingData && true : false}
+        className={classNames(
+          styles.toggleBtn,
+          settingData ? +avrData > +settingData && styles.disabled : '',
+          deviceState && styles.active,
+        )}>
         {deviceState ? btnText[1] : btnText[0]}
       </button>
     </div>

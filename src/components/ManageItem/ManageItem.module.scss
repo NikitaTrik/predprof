@@ -66,6 +66,9 @@
   border: none;
   transition: 0.5s all;
   cursor: pointer;
+  &.disabled {
+    background: #ff3737;
+  }
   &.active {
     background: #242424;
   }
