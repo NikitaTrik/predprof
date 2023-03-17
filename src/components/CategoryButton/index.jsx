@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import React from 'react';
 import styles from './CategoryButton.module.scss';
 function CategoryButton({ value, selectedCategory, setSelectedCategory, type }) {
-  console.log(selectedCategory);
   return (
     <button
       onClick={() => {

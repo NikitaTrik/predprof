@@ -1,10 +1,10 @@
 from pydantic import BaseModel
-from typing import Dict, List
 
 
 class AirBase(BaseModel):
-    temperature: int
-    humidity: int
+    number: int
+    temperature: float
+    humidity: float
 
 
 class Air(BaseModel):
@@ -12,7 +12,8 @@ class Air(BaseModel):
 
 
 class GroundBase(BaseModel):
-    humidity: int
+    number: int
+    humidity: float
 
 
 class Ground(GroundBase):

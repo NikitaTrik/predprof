@@ -25,7 +25,7 @@ function Header() {
       <header className={styles.block}>
         <div className={styles.wrapper}>
           <Link className={styles.title} to="/">
-            Название
+            Кейс №8
           </Link>
           <nav className={styles.links}>
             <Link to="/" className={styles.link}>

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
@@ -15,6 +16,16 @@ function App() {
   let count = 0;
   setInterval(() => {
     receiveTemperatureData().then((data) => {
+      axios.post(
+        'http://127.0.0.1:8000/air/create',
+        data.map((item) => {
+          return {
+            temperature: item.temperature,
+            humidity: item.humidity,
+            number: item.id,
+          };
+        }),
+      );
       dispatch(
         addAverage({
           temperature: (data.reduce((a, value) => a + value.temperature, 0) / 4).toFixed(2),
@@ -34,6 +45,13 @@ function App() {
       );
 
       receiveSoilHumidityData().then((data) => {
+        const arr = data.map((item) => {
+          return {
+            humidity: item.humidity,
+            number: item.id,
+          };
+        });
+        axios.post('http://127.0.0.1:8000/ground/create', arr);
         dispatch(
           addSoilHumidity(
             data.map((item) => {

@@ -83,6 +83,14 @@
   }
 }
 
+@media (max-width: 2500px) {
+  .menu {
+    &.active {
+      right: 150px;
+    }
+  }
+}
+
 .bgBlur {
   display: block;
   z-index: 1;

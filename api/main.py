@@ -1,9 +1,9 @@
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from database import CRUD, models, schemas
 from database.database import SessionLocal, engine
-import requests,json
+from typing import List
 
 
 models.Base.metadata.create_all(bind=engine)
@@ -40,11 +40,13 @@ def get_ground_data(db: Session = Depends(get_db)):
 
 
 @app.post("/air/create")
-def create_air_data(air: schemas.AirBase, db: Session = Depends(get_db)):
-    return CRUD.create_air_data(db, air)
+def create_air_data(airList: List[schemas.AirBase], db: Session = Depends(get_db)):
+    for air in airList:
+        yield CRUD.create_air_data(db, air)
 
 
 @app.post("/ground/create")
-def create_ground_data(ground: schemas.GroundBase, db: Session = Depends(get_db)):
-    return CRUD.create_ground_data(db, ground)
+def create_ground_data(groundList: List[schemas.GroundBase], db: Session = Depends(get_db)):
+    for ground in groundList:
+        yield CRUD.create_ground_data(db, ground)
 
