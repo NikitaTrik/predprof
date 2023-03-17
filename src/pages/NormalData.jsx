@@ -7,7 +7,7 @@ import Table from '../components/Table';
 import useChartData from '../hooks/useChartData';
 
 function NormalData() {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState([]);
   let count = 0;
   const categories = ['1', '2', '3', '4'];
   const temperatureDataset = useSelector((state) => state.sensorsData.temperature).map((item) => {

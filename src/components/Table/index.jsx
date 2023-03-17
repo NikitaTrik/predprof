@@ -12,7 +12,7 @@ function Table({ selectedCategory, columns, data }) {
       </div>
       <div className={styles.content}>
         {data.map((item, index) => {
-          if (!selectedCategory || String(item.id) === selectedCategory) {
+          if (selectedCategory.length === 0 || selectedCategory.includes(String(item.id))) {
             return (
               <div key={index} className={styles.row}>
                 {Object.keys(item).map((key, idx) =>
